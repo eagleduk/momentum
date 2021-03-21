@@ -1,3 +1,4 @@
+const body = document.querySelector("body");
 const momentumWeather = document.querySelector(".momentum--weather");
 const momentumTime = document.querySelector(".momentum--time"),
   momentumName = document.querySelector(".momentum--name"),
@@ -71,12 +72,14 @@ function submitEventHandler(event) {
 function nameEvents() {
   const name = localStorage.getItem("name");
   if (name) {
-    nameDisplay.style.display = "";
-    nameInput.style.display = "none";
-    nameDisplay.querySelector("span").innerText = `Hello, ${name}`;
+    nameDisplay.classList.remove("none--display");
+    momentumTodos.classList.remove("none--display");
+    nameInput.classList.add("none--display");
+    nameDisplay.querySelector("span").innerText = `Hello!! ${name}`;
   } else {
-    nameInput.style.display = "";
-    nameDisplay.style.display = "none";
+    nameInput.classList.remove("none--display");
+    nameDisplay.classList.add("none--display");
+    momentumTodos.classList.add("none--display");
   }
 }
 
@@ -120,7 +123,6 @@ function getWeather() {
   navigator.geolocation.getCurrentPosition(function (position) {
     let lat = position.coords.latitude;
     let long = position.coords.longitude;
-    console.log(lat, long);
     fetch(
       `https://api.openweathermap.org/data/2.5/find?lat=${lat}&lon=${long}&appid=${appid}&units=metric`
     )
@@ -135,11 +137,18 @@ function getWeather() {
             main: { temp },
           },
         ] = list;
-        console.log(name, temp);
-        momentumWeather.querySelectorAll("span")[0].innerText = name;
-        momentumWeather.querySelectorAll("span")[1].innerText = temp;
+        momentumWeather.querySelectorAll("span")[0].innerText = `${temp}℃`;
+        momentumWeather.querySelectorAll("span")[1].innerText = name;
       });
   });
+}
+
+function paintBackgoundImage() {
+  const number = Math.floor(Math.random() * 8);
+  const image = new Image();
+  image.src = `backgrounds/${number + 1}.jpg`;
+  image.classList.add("bgImage");
+  body.prepend(image);
 }
 
 function init() {
@@ -149,5 +158,6 @@ function init() {
   nameEvents();
   toDosEvents();
   getWeather();
+  paintBackgoundImage();
 }
 init();
