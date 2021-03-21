@@ -1,0 +1,23 @@
+{
+  "name": "momontom",
+  "version": "1.0.0",
+  "main": "index.js",
+  "dependencies": {
+    "gh-pages": "^3.1.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/eagleduk/momentum.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/eagleduk/momentum/issues"
+  },
+  "homepage": "https://github.com/eagleduk/momentum#readme",
+  "description": ""
+}
