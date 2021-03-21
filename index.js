@@ -1,3 +1,4 @@
+const momentumWeather = document.querySelector(".momentum--weather");
 const momentumTime = document.querySelector(".momentum--time"),
   momentumName = document.querySelector(".momentum--name"),
   nameInput = momentumName.querySelector(".momentum--name--input"),
@@ -114,11 +115,39 @@ function toDosEvents() {
   });
 }
 
+function getWeather() {
+  const appid = "3bef3998f09af024f707a776a73d5e7a";
+  navigator.geolocation.getCurrentPosition(function (position) {
+    let lat = position.coords.latitude;
+    let long = position.coords.longitude;
+    console.log(lat, long);
+    fetch(
+      `https://api.openweathermap.org/data/2.5/find?lat=${lat}&lon=${long}&appid=${appid}&units=metric`
+    )
+      .then(function (response) {
+        return response.json();
+      })
+      .then(function (response) {
+        const { list } = response;
+        const [
+          {
+            name,
+            main: { temp },
+          },
+        ] = list;
+        console.log(name, temp);
+        momentumWeather.querySelectorAll("span")[0].innerText = name;
+        momentumWeather.querySelectorAll("span")[1].innerText = temp;
+      });
+  });
+}
+
 function init() {
   momentumName.addEventListener("submit", submitEventHandler);
   momentumTodoSubmit.addEventListener("submit", submitEventHandler);
   setInterval(getTimeString(), 60000);
   nameEvents();
   toDosEvents();
+  getWeather();
 }
 init();
