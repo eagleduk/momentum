@@ -11,6 +11,11 @@ span {
   color: #ffffff;
 }
 
+input {
+  outline: none;
+  border: none;
+}
+
 main > div.momentum--time > div:first-child,
 main > div.momentum--time > div:last-child,
 main > form.momentum--name > div.momentum--name--display {
